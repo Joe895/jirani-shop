@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: jirani
+      POSTGRES_PASSWORD: jirani_dev_only
+      POSTGRES_DB: jirani_shop
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - jirani_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U jirani -d jirani_shop']
+      interval: 5s
+      timeout: 5s
+      retries: 8
+volumes:
+  jirani_postgres:

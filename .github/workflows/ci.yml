@@ -1,0 +1,21 @@
+name: Jirani Shop CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://jirani:jirani_dev_only@localhost:5432/jirani_shop?schema=public
+      JWT_SECRET: ci_test_only_secret_not_for_any_real_deployment_12345
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install
+      - run: npm run prisma:generate -w apps/api
+      - run: npm test
+      - run: npm run build

@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+coverage/
+dist/
+apps/api/src/generated/
+apps/web/.vite/
+package-lock.backup.json
+*.tsbuildinfo
